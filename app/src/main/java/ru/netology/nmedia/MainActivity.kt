@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.dto.*
 import ru.netology.nmedia.utils.*
 
 
@@ -21,14 +21,15 @@ class MainActivity : AppCompatActivity() {
             published = "21 мая в 18:36",
             likedByMe = false
         )
+
         with(binding) {
             authorTextView.text = post.author
             publishedTextView.text = post.published
             contentTextView.text = post.content
             if (post.likedByMe) {
-                icLikesImageButton?.setImageResource(R.drawable.ic_baseline_favorite_24)
+                icLikesImageButton.setImageResource(R.drawable.ic_baseline_favorite_24)
             }
-            likeCountTextView?.text = compressNumber(post.likes)
+            likesTextView.text = compressNumber(post.likes.count)
 
             root.setOnClickListener {
                 Log.d("stuff", "stuff")
@@ -38,20 +39,20 @@ class MainActivity : AppCompatActivity() {
                 Log.d("stuff", "avatar")
             }
 
-            icLikesImageButton?.setOnClickListener {
+            icLikesImageButton.setOnClickListener {
                 Log.d("stuff", "like")
                 post.likedByMe = !post.likedByMe
                 icLikesImageButton.setImageResource(
                     if (post.likedByMe) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
                 )
-                if (post.likedByMe) post.likes++ else post.likes--
-                likeCountTextView?.text = compressNumber(post.likes)
+                if (post.likedByMe) post.likes.count++ else post.likes.count--
+                likesTextView.text = compressNumber(post.likes.count)
             }
 
-            icShareImageButton?.setOnClickListener {
+            icShareImageButton.setOnClickListener {
                 Log.d("stuff", "share")
-                post.share++
-                shareCountTextView?.text = compressNumber(post.share)
+                post.share.count++
+                shareTextView.text = compressNumber(post.share.count)
             }
         }
     }
